@@ -45,6 +45,7 @@ def rep(program, functions, out):
     out.output(str(program) + ' ' + str(functions))
 
 def move_coords(direction, y, x):
+    """Adjusts y and x in direction""" 
     if direction == 'N':
         y -= 1
     elif direction == 'E':
@@ -56,6 +57,7 @@ def move_coords(direction, y, x):
     return y, x
 
 def opp_direction(direction):
+    """Returns the direction opposite to the one specified"""
     if direction == 'N':
         return 'S'
     elif direction == 'E':
@@ -68,6 +70,7 @@ def opp_direction(direction):
         return None
 
 def move_car(car, instuction):
+    """Moves the car with an instruction"""
     if instuction == '%L':
         car.set_direction('W')
     elif instuction == '%R':
@@ -78,9 +81,11 @@ def move_car(car, instuction):
         car.set_direction('S')
 
 def fatal_error(error):
+    """Prints the error and exits the program"""
     print('Fatal Error: '+error)
     sys.exit()
 def error(error, out):
+    """Prints the error"""
     out.output('Error: '+error)
 
 
@@ -174,7 +179,7 @@ class Maze(object):
 
                         self._program[yN][xN] = car
                         self._program[y][x] = old
-                        
+
                         car.set_cell(new)
                         car.move(direction)
 
@@ -199,6 +204,7 @@ class Maze(object):
                         break # Skip all other directions, as we used this one.
 
     def _run_commands(self):
+        """"""
         signal = False
         is_function = False
         reg1 = re.compile(r'[0-9]{2}')
@@ -384,6 +390,7 @@ class Maze(object):
                                 error('Invalid IF statement: Missing THEN or ELSE')
 
     def frame(self):
+        """Updates the maze by one frame"""
         self._move_cars()
         self._run_commands()
 
@@ -404,10 +411,7 @@ class Car(object):
 
     def __str__(self):
         if not self._hold == 0:
-            print(self._hold)
             self._hold -= 1
-            print(self._hold)
-        print('hold '+str(self._hold))
         len_ = len(str(self._value))
         if len_ == 1:
             return '0'+str(self._value)
@@ -480,7 +484,7 @@ def main():
 
     maze = Maze(program, functions, output)
 
-    FPS = 20
+    FPS = 7
     while maze.running:
         if maze_out:
             print(maze)
