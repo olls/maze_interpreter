@@ -194,8 +194,7 @@ class Maze(object):
                                                             car, 
                                                             new_car_direction)
                             else:
-                                fatal_error('Invalid program: No space for new\
-                                             car.')
+                                fatal_error('Invalid program: No space for new car.')
 
                         break # Skip all other directions, as we used this one.
 
