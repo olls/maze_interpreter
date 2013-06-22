@@ -1,0 +1,8 @@
+##,##,##
+##,^^,## //Car Starts
+##,AA,## //Do AA to Car
+##,>>,## //Print Car
+##,(),## //Destroy Car
+##,##,##
+
+AA-> ="Hello World!"
