@@ -14,7 +14,7 @@ def seperate(file):
     return program, functions
 
 def organise_prog(program):
-    """Split program lines imto list of commands"""
+    """Split program lines into list of commands"""
     new = [0 for i in program]
     for i, line in enumerate(program):
         new[i] = [i[:2] for i in line.split(',')]
