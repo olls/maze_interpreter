@@ -133,16 +133,21 @@ class Maze(object):
 
     @property
     def _cars(self):
-        cars = 0
-        pos = []
+        no = 0
+        cars = []
         for y, row in enumerate(self._program):
             for x, cell in enumerate(row):
                 if cell == '^^':
                     self._program[y][x] = Car(y, x, '..')
                 if isinstance(self._program[y][x], Car):
-                    cars += 1
-                    pos.append(self._program[y][x])
-        return tuple(pos)
+                    no += 1
+                    cars.append(self._program[y][x])
+        return tuple(cars)
+
+    def car_frames(self):
+        cars = self._cars
+        for car in cars:
+            car.frame()
 
     def _move_cars(self):
         cars = self._cars
@@ -410,8 +415,6 @@ class Car(object):
             self._value = car.value
 
     def __str__(self):
-        if not self._hold == 0:
-            self._hold -= 1
         len_ = len(str(self._value))
         if len_ == 1:
             return '0'+str(self._value)
@@ -421,6 +424,10 @@ class Car(object):
             return str(self._value)[:2]
         else:
             return str(self._value)
+
+    def frame(self):
+        if self._hold > 0:
+            self._hold -= 1
 
     @property
     def value(self):
@@ -491,6 +498,7 @@ def main():
         if maze_out and i > 300:
             print(('\n'*80) + str(maze))
             time.sleep(1/FPS)
+        maze.car_frames()
         maze.frame()
     if maze_out:
         print(maze)
