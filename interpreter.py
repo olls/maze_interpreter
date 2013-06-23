@@ -317,7 +317,7 @@ class Maze(object):
                                         if int(car.value) <= int(val):
                                             comparition = True
                                     except ValueError:
-                                        error('Can\'t compair string.', self._output)
+                                        error('Can\'t compare string.', self._output)
                                 elif function[3:5] == '==':
                                     i = 0
                                     val = ''
@@ -331,7 +331,7 @@ class Maze(object):
                                         if int(car.value) == int(val):
                                             comparition = True
                                     except ValueError:
-                                        error('Can\'t compair string.', self._output)
+                                        error('Can\'t compare string.', self._output)
                                 elif function[3:5] == '>=':
                                     i = 0
                                     val = ''
@@ -345,7 +345,7 @@ class Maze(object):
                                         if int(car.value) >= int(val):
                                             comparition = True
                                     except ValueError:
-                                        error('Can\'t compair string.', self._output)
+                                        error('Can\'t compare string.', self._output)
                                 elif function[3:4] == '>':
                                     i = 0
                                     val = ''
@@ -359,7 +359,7 @@ class Maze(object):
                                         if int(car.value) > int(val):
                                             comparition = True
                                     except ValueError:
-                                        error('Can\'t compair string.', self._output)
+                                        error('Can\'t compare string.', self._output)
                                 elif function[3:4] == '<':
                                     i = 0
                                     val = ''
@@ -373,7 +373,7 @@ class Maze(object):
                                         if int(car.value) < int(val):
                                             comparition = True
                                     except ValueError:
-                                        error('Can\'t compair string.', self._output)
+                                        error('Can\'t compare string.', self._output)
                                 else:
                                     error('Condition not recognised.', self._output)
 
@@ -484,12 +484,12 @@ def main():
 
     maze = Maze(program, functions, output)
 
-    FPS = 10
-    i=0
+    FPS = 8
+    i = 0
     while maze.running:
         i += 1
         if maze_out and i > 0:
-            print(('\n'*80)+str(maze))
+            print(('\n'*80) + str(maze))
             time.sleep(1/FPS)
         maze.frame()
     if maze_out:
