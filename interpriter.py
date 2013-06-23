@@ -484,7 +484,7 @@ def main():
 
     maze = Maze(program, functions, output)
 
-    FPS = 5
+    FPS = 25
     while maze.running:
         if maze_out:
             print('\n'*80)
