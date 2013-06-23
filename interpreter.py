@@ -491,7 +491,7 @@ def main():
 
     maze = Maze(program, functions, output)
 
-    FPS = 8
+    FPS = 16
     i = 0
     while maze.running:
         i += 1
