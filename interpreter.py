@@ -488,7 +488,7 @@ def main():
     i = 0
     while maze.running:
         i += 1
-        if maze_out and i > 0:
+        if maze_out and i > 300:
             print(('\n'*80) + str(maze))
             time.sleep(1/FPS)
         maze.frame()
