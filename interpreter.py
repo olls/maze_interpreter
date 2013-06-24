@@ -120,7 +120,10 @@ class Maze(object):
         string = ''
         for row in self._program:
             for cell in row:
-                string += str(cell)
+                if str(cell) == '..':
+                    string += '  '
+                else:
+                    string += str(cell)
             string += '\n'
         return string
 
@@ -491,7 +494,7 @@ def main():
 
     maze = Maze(program, functions, output)
 
-    FPS = 16
+    FPS = 8
     i = 0
     while maze.running:
         i += 1
