@@ -113,8 +113,6 @@ class Maze(object):
         self._output = output
         if not len(self._cars) == 1:
             fatal_error('Invalid car in program.')
-        else:
-            pass
 
     def __str__(self):
         string = ''
@@ -262,7 +260,7 @@ class Maze(object):
                             if int_:
                                 try:
                                     car.set_value(int(int(car.value)-int(function[2:])))
-                                except TypeError:
+                                except (TypeError, ValueError):
                                     error('Can\'t subtract from non-integer.', self._output)
                             else:
                                 error('Can\'t subtract non-integer.', self._output)
@@ -275,7 +273,7 @@ class Maze(object):
                             if int_:
                                 try:
                                     car.set_value(int(int(car.value)+int(function[2:])))
-                                except TypeError:
+                                except (TypeError, ValueError):
                                     error('Can\'t add to non-integer.', self._output)
                             else:
                                 error('Can\'t add non-integer.', self._output)
@@ -288,7 +286,7 @@ class Maze(object):
                             if int_:
                                 try:
                                     car.set_value(int(int(car.value)*int(function[2:])))
-                                except TypeError:
+                                except (TypeError, ValueError):
                                     error('Can\'t multiply non-integer.', self._output)
                             else:
                                 error('Can\'t multiply by non-integer.', self._output)
@@ -301,7 +299,7 @@ class Maze(object):
                             if int_:
                                 try:
                                     car.set_value(int(int(car.value)/int(function[2:])))
-                                except TypeError:
+                                except (TypeError, ValueError):
                                     error('Can\'t divide non-integer', self._output)
                             else:
                                 error('Can\'t divide by non-integer', self._output)
@@ -482,6 +480,9 @@ def main():
         except IndexError:
             maze_out = False
 
+    if not maze_out:
+        continuous = True
+
     output = Output(continuous)
 
     program_file = open(sys.argv[1], 'r').read()
@@ -494,7 +495,7 @@ def main():
 
     maze = Maze(program, functions, output)
 
-    FPS = 8
+    FPS = 4
     i = 0
     while maze.running:
         i += 1
@@ -503,9 +504,10 @@ def main():
             time.sleep(1/FPS)
         maze.car_frames()
         maze.frame()
+
     if maze_out:
         print(maze)
-    print(output)
+        print(output)
 
 if __name__ == '__main__':
     main()
