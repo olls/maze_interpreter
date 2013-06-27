@@ -1,0 +1,34 @@
+##,##,^^
+##,AB,AC,<>,BA,BB,BC,BD,BE,BF,BG,BH,BI,BJ,()
+##,##,AD,  ,%D,%D,%D,%D,%D,%D,%D,%D,%D,**
+##,  ,%U,  ,AA,AA,AA,AA,AA,AA,AA,AA,AA,**
+##,  ,  ,  ,AE,..,AE,..,AE,..,AE,..,AE,()
+##,  ,  ,  ,%R,%R,%R,%R,%R,%R,%R,%R,%R,**,**,%D
+##,  ,  ,  ,%R,..,..,..,..,..,..,..,..,..,%D,..
+##,  ,  ,  ,..,%R,..,..,..,..,..,..,..,%D,..,..
+##,  ,  ,  ,..,..,%R,..,..,..,..,..,%D,..,..,..
+##,  ,  ,  ,..,..,..,%R,..,..,..,%D,..,..,..,..
+##,  ,  ,  ,..,..,..,..,(),..,..,%L,..,..,..,..
+##,  ,  ,  ,..,..,..,%U,..,..,..,..,%L,..,..,..
+##,  ,  ,  ,..,..,%U,..,..,..,..,..,..,%L,..,..
+##,  ,  ,  ,..,%U,..,..,..,..,..,..,..,..,%L,..
+##,  ,  ,  ,%U,..,..,..,..,..,..,..,..,..,..,%L
+
+AA-> IF ** THEN %D ELSE %U
+AB-> +=1
+AC-> IF ** THEN %D
+AD-> =0
+AE-> IF ** THEN %U ELSE %D
+
+// BUFFER CELLS FUNCTIONS
+
+BA-> IF ==1 THEN %D ELSE %R
+BB-> IF ==2 THEN %D ELSE %R
+BC-> IF ==3 THEN %D ELSE %R
+BD-> IF ==4 THEN %D ELSE %R
+BE-> IF ==5 THEN %D ELSE %R
+BF-> IF ==6 THEN %D ELSE %R
+BG-> IF ==7 THEN %D ELSE %R
+BH-> IF ==8 THEN %D ELSE %R
+BI-> IF ==9 THEN %D ELSE %R
+BJ-> IF ==10 THEN %D ELSE %R
