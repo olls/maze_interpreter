@@ -139,7 +139,7 @@ class Maze(object):
         for y, row in enumerate(self._program):
             for x, cell in enumerate(row):
                 if cell == '^^':
-                    self._program[y][x] = Car(y, x, '..')
+                    self._program[y][x] = Car(y, x, '##')
                 if isinstance(self._program[y][x], Car):
                     no += 1
                     cars.append(self._program[y][x])
@@ -305,7 +305,7 @@ class Maze(object):
                                 error('Can\'t divide by non-integer', self._output)
                         
                         elif function[:2] == 'IF':
-                            if 'THEN' in function and 'ELSE' in function:
+                            if 'THEN' in function:
                                 comparition = False
                                 if function[3:5] == '**':
                                     if signal:
@@ -384,16 +384,25 @@ class Maze(object):
                                     error('Condition not recognised.', self._output)
 
                                 then_pos = function.find('THEN')
-                                else_pos = function.find('ELSE')
+
+                                if 'ELSE' in function:
+                                    else_pos = function.find('ELSE')
+
                                 if comparition:
-                                    command = function[then_pos+5:else_pos].strip()
+                                    if 'ELSE' in function:
+                                        command = function[then_pos+5:else_pos].strip()
+                                    else:
+                                        command = function[then_pos+5:].strip()
+                                    move_car(car, command)
+
                                 else:
-                                    command = function[else_pos+5:].strip()
+                                    if 'ELSE' in function:
+                                        command = function[else_pos+5:].strip()
+                                        move_car(car, command)
                                 
-                                move_car(car, command)
 
                             else:
-                                error('Invalid IF statement: Missing THEN or ELSE')
+                                error('Invalid IF statement: Missing THEN')
 
     def frame(self):
         """Updates the maze by one frame"""
@@ -486,7 +495,7 @@ def main():
     output = Output(continuous)
 
     program_file = open(sys.argv[1], 'r').read()
-    program_file = program_file.split('\n')[:-1]
+    program_file = program_file.split('\n')
     
     program, functions = seperate(program_file)
 
