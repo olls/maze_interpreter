@@ -2,13 +2,17 @@
 ##,AB,AC,<>,BA,BB,BC,BD,BE,BF,BG,BH,BI,BJ,()
 ##,##,AD,  ,%D,%D,%D,%D,%D,%D,%D,%D,%D,**
 ##,  ,%U,  ,AA,AA,AA,AA,AA,AA,AA,AA,AA,**
-##,  ,  ,  ,..,%R,..,%R,..,%R,..,%R,..,()
-##,  ,  ,  ,%R,..,%R,..,%R,..,%R,..,%R,()
+##,  ,  ,  ,02,..,02,..,02,..,02,..,02,()
+##,  ,  ,  ,..,..,..,..,..,..,..,..,..
+##,  ,  ,  ,(),(),(),(),(),(),(),(),()
 
 AA-> IF ** THEN %D ELSE %U
 AB-> +=1
 AC-> IF ** THEN %D
 AD-> =0
+
+// BUFFER CELLS FUNCTIONS
+
 BA-> IF ==1 THEN %D ELSE %R
 BB-> IF ==2 THEN %D ELSE %R
 BC-> IF ==3 THEN %D ELSE %R
