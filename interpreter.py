@@ -45,7 +45,7 @@ def rep(program, functions, out):
     out.output(str(program) + ' ' + str(functions))
 
 def move_coords(direction, y, x):
-    """Adjusts y and x in direction""" 
+    """Adjusts y and x in direction"""
     if direction == 'N':
         y -= 1
     elif direction == 'E':
@@ -102,11 +102,11 @@ class Output(object):
         self._out += '\n'+str(string)
         if self._continuous:
             print(string)
-        
+
 
 class Maze(object):
     """Holds and processes the maze"""
-    
+
     def __init__(self, program, functions, output):
         self._program = program
         self._functions = functions
@@ -173,8 +173,8 @@ class Maze(object):
                     # If the new coords match allow traversing
                     reg1 = re.compile(r'[0-9]{2}')
                     reg2 = re.compile(r'[A-Z]{2}')
-                    if (self._program[yN][xN] in ('..', '<>', '()', '>>', 
-                                                  '<<', '--', '%L', '%R', 
+                    if (self._program[yN][xN] in ('..', '<>', '()', '>>',
+                                                  '<<', '--', '%L', '%R',
                                                   '%U', '%D', '**') or
                         not reg1.match(self._program[yN][xN]) is None or
                         not reg2.match(self._program[yN][xN]) is None):
@@ -193,16 +193,16 @@ class Maze(object):
                         if self._program[y][x] == '<>':
                             new_car_direction = opp_direction(direction)
                             yN, xN = move_coords(new_car_direction, y, x)
-                            if (self._program[yN][xN] in ('..', '<>', '()', 
-                                                          '>>', '<<', '--', 
+                            if (self._program[yN][xN] in ('..', '<>', '()',
+                                                          '>>', '<<', '--',
                                                           '%L', '%R', '%U',
                                                            '%D', '**') or
                                 not reg1.match(self._program[yN][xN]) is None or
                                 not reg2.match(self._program[yN][xN]) is None):
 
-                                self._program[yN][xN] = Car(yN, xN, 
+                                self._program[yN][xN] = Car(yN, xN,
                                                             self._program[yN][xN],
-                                                            car, 
+                                                            car,
                                                             new_car_direction)
                             else:
                                 fatal_error('Invalid program: No space for new car.')
@@ -244,7 +244,7 @@ class Maze(object):
                     except KeyError:
                         function = False
                         error('Function undeclared.', self._output)
-                    
+
                     if function:
                         if function[:1] == '=':
                             if function[1:2] == '"':
@@ -303,7 +303,7 @@ class Maze(object):
                                     error('Can\'t divide non-integer', self._output)
                             else:
                                 error('Can\'t divide by non-integer', self._output)
-                        
+
                         elif function[:2] == 'IF':
                             if 'THEN' in function:
                                 comparition = False
@@ -399,7 +399,7 @@ class Maze(object):
                                     if 'ELSE' in function:
                                         command = function[else_pos+5:].strip()
                                         move_car(car, command)
-                                
+
 
                             else:
                                 error('Invalid IF statement: Missing THEN')
@@ -412,7 +412,7 @@ class Maze(object):
 
 class Car(object):
     """Holds information about a Car"""
-    
+
     def __init__(self, y, x, cell, car=None, direction='S'):
         self._y = y
         self._x = x
@@ -468,7 +468,7 @@ class Car(object):
         return self._direction
     def set_direction(self, direction):
         self._direction = direction
-        
+
 def main():
     try:
         if sys.argv[2] == '-c':
@@ -496,7 +496,7 @@ def main():
 
     program_file = open(sys.argv[1], 'r').read()
     program_file = program_file.split('\n')
-    
+
     program, functions = seperate(program_file)
 
     program = organise_prog(program)
