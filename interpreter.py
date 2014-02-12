@@ -2,11 +2,11 @@ import sys
 import time
 import re
 
-def seperate(file):
+def seperate(file_):
     """Split into program and functions lists"""
 
     program, functions = [], []
-    for line in file:
+    for line in file_:
         if line[:2] == '##':
             program.append(line)
         elif line[2:4] == '->':
