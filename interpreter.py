@@ -2,8 +2,9 @@ import sys
 import time
 import re
 
+
 def separate(file_):
-    """Split into program and functions lists"""
+    """ Split into program and functions lists. """
 
     program, functions = [], []
     for line in file_:
@@ -13,15 +14,17 @@ def separate(file_):
             program.append(line)
     return program, functions
 
+
 def organize_prog(program):
-    """Split program lines into list of commands"""
+    """ Split program lines into list of commands. """
     new = [0 for i in program]
     for i, line in enumerate(program):
         new[i] = [i[:2] for i in line.split(',')]
     return new
 
+
 def organize_funcs(functions):
-    """Split functions into name and command"""
+    """ Split functions into name and command. """
     functions = {i[:2]: i[5:] for i in functions}
 
     for key, function in functions.items():
@@ -40,12 +43,14 @@ def organize_funcs(functions):
 
     return functions
 
+
 def rep(program, functions, out):
-    """Report the program and functions"""
+    """ Report the program and functions. """
     out.output(str(program) + ' ' + str(functions))
 
+
 def move_coords(direction, y, x):
-    """Adjusts y and x in direction"""
+    """ Adjusts y and x in direction. """
     if direction == 'N':
         y -= 1
     elif direction == 'E':
@@ -56,8 +61,9 @@ def move_coords(direction, y, x):
         x -= 1
     return y, x
 
+
 def opp_direction(direction):
-    """Returns the direction opposite to the one specified"""
+    """ Returns the direction opposite to the one specified. """
     if direction == 'N':
         return 'S'
     elif direction == 'E':
@@ -69,8 +75,9 @@ def opp_direction(direction):
     else:
         return None
 
+
 def move_car(car, instuction):
-    """Moves the car with an instruction"""
+    """ Moves the car with an instruction. """
     if instuction == '%L':
         car.set_direction('W')
     elif instuction == '%R':
@@ -80,17 +87,20 @@ def move_car(car, instuction):
     elif instuction == '%D':
         car.set_direction('S')
 
+
 def fatal_error(error):
-    """Prints the error and exits the program"""
-    print('Fatal Error: '+error)
+    """ Prints the error and exits the program. """
+    print('Fatal Error: ' + error)
     sys.exit()
+
+
 def error(error, out):
-    """Prints the error"""
-    out.output('Error: '+error)
+    """ Prints the error. """
+    out.output('Error: ' + error)
 
 
 class Output(object):
-    """Holds the output"""
+    """ Holds the output. """
     def __init__(self, continuous=False):
         self._out = ''
         self._continuous = continuous
@@ -99,13 +109,13 @@ class Output(object):
         return self._out
 
     def output(self, string):
-        self._out += '\n'+str(string)
+        self._out += '\n' + str(string)
         if self._continuous:
             print(string)
 
 
 class Maze(object):
-    """Holds and processes the maze"""
+    """ Holds and processes the maze. """
 
     def __init__(self, program, functions, output):
         self._program = program
@@ -207,10 +217,9 @@ class Maze(object):
                             else:
                                 fatal_error('Invalid program: No space for new car.')
 
-                        break # Skip all other directions, as we used this one.
+                        break  # Skip all other directions, as we used this one.
 
     def _run_commands(self):
-        """"""
         signal = False
         is_function = False
         reg1 = re.compile(r'[0-9]{2}')
@@ -219,7 +228,7 @@ class Maze(object):
         for car in cars:
             y, x = car.postion
 
-            move_car(car, car.cell) # Moves the car if car.cell is a direction
+            move_car(car, car.cell)  # Moves the car if car.cell is a direction
             if not reg1.match(car.cell) is None:
                 if car.hold == 0:
                     car.set_hold(car.cell)
@@ -233,12 +242,12 @@ class Maze(object):
                 car.set_cell('##')
             elif car.cell == '**':
                 signal = True
-            elif not reg2.match(car.cell) is None: # If it's a function
+            elif not reg2.match(car.cell) is None:  # If it's a function
                 is_function = True
 
-        if is_function == True:
+        if is_function:
             for car in cars:
-                if not reg2.match(car.cell) is None: # If it's a function
+                if not reg2.match(car.cell) is None:  # If it's a function
                     try:
                         function = self._functions[car.cell]
                     except KeyError:
@@ -259,7 +268,7 @@ class Maze(object):
                                 int_ = False
                             if int_:
                                 try:
-                                    car.set_value(int(int(car.value)-int(function[2:])))
+                                    car.set_value(int(int(car.value) - int(function[2:])))
                                 except (TypeError, ValueError):
                                     error('Can\'t subtract from non-integer.', self._output)
                             else:
@@ -272,7 +281,7 @@ class Maze(object):
                                 int_ = False
                             if int_:
                                 try:
-                                    car.set_value(int(int(car.value)+int(function[2:])))
+                                    car.set_value(int(int(car.value) + int(function[2:])))
                                 except (TypeError, ValueError):
                                     error('Can\'t add to non-integer.', self._output)
                             else:
@@ -285,7 +294,7 @@ class Maze(object):
                                 int_ = False
                             if int_:
                                 try:
-                                    car.set_value(int(int(car.value)*int(function[2:])))
+                                    car.set_value(int(int(car.value) * int(function[2:])))
                                 except (TypeError, ValueError):
                                     error('Can\'t multiply non-integer.', self._output)
                             else:
@@ -298,7 +307,7 @@ class Maze(object):
                                 int_ = False
                             if int_:
                                 try:
-                                    car.set_value(int(int(car.value)/int(function[2:])))
+                                    car.set_value(int(int(car.value) / int(function[2:])))
                                 except (TypeError, ValueError):
                                     error('Can\'t divide non-integer', self._output)
                             else:
@@ -315,7 +324,7 @@ class Maze(object):
                                     val = ''
                                     char = ''
                                     while not char == ' ':
-                                        char = function[5+i:6+i]
+                                        char = function[5 + i:6 + i]
                                         val += char
                                         i += 1
                                     val = val[:-1]
@@ -329,7 +338,7 @@ class Maze(object):
                                     val = ''
                                     char = ''
                                     while not char == ' ':
-                                        char = function[5+i:6+i]
+                                        char = function[5 + i:6 + i]
                                         val += char
                                         i += 1
                                     val = val[:-1]
@@ -343,7 +352,7 @@ class Maze(object):
                                     val = ''
                                     char = ''
                                     while not char == ' ':
-                                        char = function[5+i:6+i]
+                                        char = function[5 + i:6 + i]
                                         val += char
                                         i += 1
                                     val = val[:-1]
@@ -357,7 +366,7 @@ class Maze(object):
                                     val = ''
                                     char = ''
                                     while not char == ' ':
-                                        char = function[4+i:5+i]
+                                        char = function[4 + i:5 + i]
                                         val += char
                                         i += 1
                                     val = val[:-1]
@@ -371,7 +380,7 @@ class Maze(object):
                                     val = ''
                                     char = ''
                                     while not char == ' ':
-                                        char = function[4+i:5+i]
+                                        char = function[4 + i:5 + i]
                                         val += char
                                         i += 1
                                     val = val[:-1]
@@ -390,28 +399,26 @@ class Maze(object):
 
                                 if comparition:
                                     if 'ELSE' in function:
-                                        command = function[then_pos+5:else_pos].strip()
+                                        command = function[then_pos + 5:else_pos].strip()
                                     else:
-                                        command = function[then_pos+5:].strip()
+                                        command = function[then_pos + 5:].strip()
                                     move_car(car, command)
 
                                 else:
                                     if 'ELSE' in function:
-                                        command = function[else_pos+5:].strip()
+                                        command = function[else_pos + 5:].strip()
                                         move_car(car, command)
-
-
                             else:
                                 error('Invalid IF statement: Missing THEN')
 
     def frame(self):
-        """Updates the maze by one frame"""
+        """ Updates the maze by one frame. """
         self._move_cars()
         self._run_commands()
 
 
 class Car(object):
-    """Holds information about a Car"""
+    """ Holds information about a Car. """
 
     def __init__(self, y, x, cell, car=None, direction='S'):
         self._y = y
@@ -427,7 +434,7 @@ class Car(object):
     def __str__(self):
         len_ = len(str(self._value))
         if len_ == 1:
-            return '0'+str(self._value)
+            return '0' + str(self._value)
         elif len_ == 0:
             return '00'
         elif len_ > 2:
@@ -442,32 +449,39 @@ class Car(object):
     @property
     def value(self):
         return self._value
+
     def set_value(self, value):
         self._value = value
 
     @property
     def hold(self):
         return self._hold
+
     def set_hold(self, hold):
         self._hold = int(hold)
 
     @property
     def cell(self):
         return self._cell
+
     def set_cell(self, cell):
         self._cell = cell
 
     def move(self, direction):
         self._y, self._x = move_coords(direction, self._y, self._x)
         self._direction = direction
+
     @property
     def postion(self):
         return (self._y, self._x)
+
     @property
     def direction(self):
         return self._direction
+
     def set_direction(self, direction):
         self._direction = direction
+
 
 def main():
     try:
@@ -509,14 +523,15 @@ def main():
     while maze.running:
         i += 1
         if maze_out and i > 0:
-            print(('\n'*80) + str(maze))
-            time.sleep(1/FPS)
+            print(('\n' * 80) + str(maze))
+            time.sleep(1 / FPS)
         maze.car_frames()
         maze.frame()
 
     if maze_out:
         print(maze)
         print(output)
+
 
 if __name__ == '__main__':
     main()
