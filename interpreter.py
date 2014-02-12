@@ -19,13 +19,13 @@ def organize_prog(program):
     """ Split program lines into list of commands. """
     new = [0 for i in program]
     for i, line in enumerate(program):
-        new[i] = [i[:2] for i in line.split(',')]
+        new[i] = [j[:2] for j in line.split(',')]
     return new
 
 
 def organize_funcs(functions):
     """ Split functions into name and command. """
-    functions = {i[:2]: i[5:] for i in functions}
+    functions = {function[:2]: function[5:] for function in functions}
 
     for key, function in functions.items():
         comment = False
