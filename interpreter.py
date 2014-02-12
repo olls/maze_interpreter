@@ -7,10 +7,10 @@ def seperate(file_):
 
     program, functions = [], []
     for line in file_:
-        if line[:2] == '##':
-            program.append(line)
-        elif line[2:4] == '->':
+        if '->' in line:
             functions.append(line)
+        elif '##' in line or '..' in line:
+            program.append(line)
     return program, functions
 
 def organise_prog(program):
