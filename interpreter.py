@@ -2,7 +2,7 @@ import sys
 import time
 import re
 
-def seperate(file_):
+def separate(file_):
     """Split into program and functions lists"""
 
     program, functions = [], []
@@ -13,15 +13,15 @@ def seperate(file_):
             program.append(line)
     return program, functions
 
-def organise_prog(program):
+def organize_prog(program):
     """Split program lines into list of commands"""
     new = [0 for i in program]
     for i, line in enumerate(program):
         new[i] = [i[:2] for i in line.split(',')]
     return new
 
-def organise_funcs(functions):
-    """Spilt functions into name and command"""
+def organize_funcs(functions):
+    """Split functions into name and command"""
     functions = {i[:2]: i[5:] for i in functions}
 
     for key, function in functions.items():
@@ -381,7 +381,7 @@ class Maze(object):
                                     except ValueError:
                                         error('Can\'t compare string.', self._output)
                                 else:
-                                    error('Condition not recognised.', self._output)
+                                    error('Condition not recognized.', self._output)
 
                                 then_pos = function.find('THEN')
 
@@ -497,10 +497,10 @@ def main():
     program_file = open(sys.argv[1], 'r').read()
     program_file = program_file.split('\n')
 
-    program, functions = seperate(program_file)
+    program, functions = separate(program_file)
 
-    program = organise_prog(program)
-    functions = organise_funcs(functions)
+    program = organize_prog(program)
+    functions = organize_funcs(functions)
 
     maze = Maze(program, functions, output)
 
