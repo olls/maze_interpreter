@@ -1,6 +1,8 @@
 Maze Interpreter
 ================
 
+[Better rewritten version](http://github.com/olls/maze-interpreter-v2)
+
 A python interpreter for the [Maze](http://esolangs.org/wiki/Maze) programming language.
 
 Usage
